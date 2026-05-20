@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knowledge-atoms.com/schemas/knowledge-atom.schema.json",
+  "title": "knowledge-atoms base atom",
+  "description": "Base schema every atom in the knowledge-atoms catalog satisfies. Discriminated by `type`; one of: entity-type, relationship-type, provenance-atom, fact-type, confidence-primitive. Atoms that assert facts (relationship-type instances, fact-type instances) carry a non-empty `provenance` array and a `confidence` block per the v0.1 acceptance criterion for issue #4.",
+  "type": "object",
+  "required": ["schema", "type", "id", "version", "name"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Absolute URI of the per-type schema this atom validates against."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "entity-type",
+        "relationship-type",
+        "provenance-atom",
+        "fact-type",
+        "confidence-primitive"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$",
+      "description": "URL-safe slug; unique within the atom's type."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 40 },
+      "uniqueItems": true
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Where this atom's claim originates. Each entry references a provenance-atom by knowledge-atoms URI. Required on fact-type and on relationship instances when used to assert a concrete fact; optional on schema-like atoms (entity-type, relationship-type definitions).",
+      "items": {
+        "type": "object",
+        "required": ["ref", "captured_at"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^knowledge-atoms://atoms/provenance-atom/[a-z0-9-]+$"
+          },
+          "captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC 3339 UTC timestamp."
+          },
+          "source_uri": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "confidence": {
+      "type": "object",
+      "description": "Calibrated confidence in this atom's claim. Required on fact-type instances and on contradicting relationship assertions. See atoms/confidence-primitive/* for the calibration primitives this block references.",
+      "required": ["value", "basis"],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Probability in [0,1]. 0 = certainly false, 1 = certainly true."
+        },
+        "basis": {
+          "type": "string",
+          "enum": ["probability", "evidence-count", "source-trust", "composite"]
+        },
+        "sources_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "primitive_ref": {
+          "type": "string",
+          "pattern": "^knowledge-atoms://atoms/confidence-primitive/[a-z0-9-]+$"
+        }
+      }
+    },
+    "see_also": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^knowledge-atoms://atoms/[a-z-]+/[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    }
+  }
+}

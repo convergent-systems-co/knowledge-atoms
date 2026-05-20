@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knowledge-atoms.com/schemas/composition.schema.json",
+  "title": "knowledge-atoms composition (XAIP ontology composition)",
+  "description": "A knowledge-base composition declares which entity-type, relationship-type, and rule atoms compose into a domain ontology. References are version-pinned. Closes issue #3 (XAIP: ontology composition schema).",
+  "type": "object",
+  "required": ["id", "type", "version", "name", "entities", "relationships"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "https://knowledge-atoms.com/schemas/composition.schema.json"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$"
+    },
+    "type": {
+      "type": "string",
+      "const": "composition"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "entities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^knowledge-atoms://atoms/entity-type/[a-z0-9-]+@[0-9]+\\.[0-9]+\\.[0-9]+$",
+            "description": "Version-pinned URI of an entity-type atom."
+          },
+          "alias": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Za-z0-9_]*$"
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "required": ["ref", "from", "to"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^knowledge-atoms://atoms/relationship-type/[a-z0-9-]+@[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "from": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9_]*$" },
+          "to":   { "type": "string", "pattern": "^[A-Z][A-Za-z0-9_]*$" }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^knowledge-atoms://rules/[a-z-]+/[a-z0-9-]+@[0-9]+\\.[0-9]+\\.[0-9]+$"
+          }
+        }
+      }
+    },
+    "provenance_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "When true, every fact asserted under this composition must carry a non-empty provenance array."
+    },
+    "contradiction_handling": {
+      "type": "object",
+      "required": ["ref"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": {
+          "type": "string",
+          "pattern": "^knowledge-atoms://rules/contradiction-handling/[a-z0-9-]+@[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    }
+  }
+}

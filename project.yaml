@@ -1,0 +1,18 @@
+name: knowledge-atoms
+version: 0.1.0
+spec: atoms-spec/v1
+
+tooling:
+  test_command: python3 scripts/validate.py && python3 -m pytest -v
+
+paths:
+  atoms: atoms
+  schemas: schemas
+  compositions: knowledge-bases
+  rules: rules
+  exports: exports
+  tests: tests
+
+# Owner / governance pointers
+runtime_consumers:
+  - olympus
