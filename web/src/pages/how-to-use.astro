@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="How to use" description="How to consume knowledge-atoms in your application.">
+  <h1>How to use knowledge-atoms</h1>
+
+  <h2>Read the catalog over HTTPS</h2>
+  <p>Every artifact is served under stable URLs with correct content-types:</p>
+  <pre><code>curl https://knowledge-atoms.com/exports/catalog.json
+curl https://knowledge-atoms.com/atoms/entity-type/person.json
+curl https://knowledge-atoms.com/knowledge-bases/olympus-core.json
+curl https://knowledge-atoms.com/schemas/atom-v1.json</code></pre>
+
+  <h2>Build a knowledge graph from atoms</h2>
+  <p>A knowledge base composition assembles entity types, relationship types, and provenance requirements
+  into a complete knowledge graph schema. To instantiate:</p>
+
+  <pre><code>{`// pseudo-code
+const kb = await fetch("/knowledge-bases/olympus-core.json").then(r => r.json());
+const entityTypes = await Promise.all(
+  kb.references.entity_types.map(r => fetch(uriToUrl(r.ref)).then(r => r.json()))
+);
+const relationshipTypes = await Promise.all(
+  kb.references.relationship_types.map(r => fetch(uriToUrl(r.ref)).then(r => r.json()))
+);
+const provenance = await fetch(uriToUrl(kb.references.provenance.ref)).then(r => r.json());
+const graph = buildKnowledgeGraph({ entityTypes, relationshipTypes, provenance });`}</code></pre>
+
+  <h2>Compatibility rules</h2>
+  <p>Rules in <a href="/exports/catalog.json"><code>/exports/catalog.json</code></a> (under the <code>rules</code>
+  key) declare predicates over atoms. Example: a <code>relationship-constraint</code> rule may require
+  that a given relationship type only connects specific entity types. A composition that violates a
+  <code>require</code>-effect rule is malformed.</p>
+
+  <h2>RAG and semantic memory integration</h2>
+  <p>v0.1 ships the catalog and its JSON Schema. Adapters to specific vector databases (Pinecone,
+  Weaviate, pgvector) and RAG frameworks (LangChain, LlamaIndex) are v0.2 work — they translate
+  <code>entity-type</code> atoms into database-native schema definitions and <code>confidence-primitive</code>
+  atoms into scoring models.</p>
+</Base>
