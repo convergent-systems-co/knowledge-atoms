@@ -1,37 +1,28 @@
 # ATOMS.yml — catalog manifest for knowledge-atoms
 #
-# See https://github.com/convergent-systems-co/atoms-spec for the canonical schema this conforms to.
+# Conforms to: https://schema-atoms.com/
+# spec_version: atoms-spec/v1.1.0
 
+spec_version: atoms-spec/v1.1.0
 name: knowledge-atoms
 version: 0.1.0
-spec: atoms-spec/v1
-domain: knowledge-atoms.com
-ecosystem:
-  federation: xdao.co
-  redirect: knowledge.xdao.co
-
-purpose: |
+canonical_domain: knowledge-atoms.com
+federation: convergent-systems.co
+description: |
   Knowledge graph primitives as a foundation for RAG, semantic memory, and AI knowledge bases — entity types, relationship types, provenance, fact types, confidence primitives.
-
-atomTypes:
+atom_types:
   - entity-type
   - relationship-type
   - provenance-atom
   - fact-type
   - confidence-primitive
-
-compositionType: knowledge-bases
-compositionDir: knowledge-bases
-
-ruleTypes:
-  - relationship-constraint
-  - provenance-requirement
-  - contradiction-handling
-
-runtimeConsumers:
+composition_type: knowledge-bases
+composition_dir: knowledge-bases
+runtime_consumers:
   - olympus
-
-license: Apache-2.0
-maintainers:
-  - name: Convergent Systems
-    contact: maintainers@xdao.co
+lifecycle:
+  current: draft
+licensing:
+  code: Apache-2.0
+steward: convergent-systems-co
+infrastructure_operator: convergent-systems-co
