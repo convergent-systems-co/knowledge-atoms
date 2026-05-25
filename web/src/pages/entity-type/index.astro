@@ -1,0 +1,21 @@
+---
+import Base from "../../layouts/Base.astro";
+import AtomCard from "../../components/AtomCard.astro";
+import catalog from "../../../public/exports/catalog.json";
+
+const atoms = catalog.atoms
+  .filter((a: any) => a.type === "entity-type")
+  .sort((a: any, b: any) => a.id.localeCompare(b.id));
+---
+<Base title="Entity Types" description="Entity type atoms — canonical entity definitions for knowledge graph construction.">
+  <h1>Entity Types</h1>
+  <p>{atoms.length} entity type atom{atoms.length === 1 ? "" : "s"} — each defines a canonical entity shape for knowledge graphs.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1rem; margin-top: 2rem;">
+    {atoms.map((atom: any) => <AtomCard atom={atom} />)}
+  </div>
+
+  {atoms.length === 0 && (
+    <p style="color: var(--muted); margin-top: 2rem;">No entity-type atoms seeded yet. See <a href="/install/">install</a> to contribute.</p>
+  )}
+</Base>
