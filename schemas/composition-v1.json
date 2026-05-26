@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knowledge-atoms.com/schemas/composition-v1.json",
+  "title": "knowledge-atoms v1 knowledge-base composition",
+  "description": "A knowledge-base composition — an assembled artifact that combines multiple knowledge atoms into a coherent, queryable knowledge graph for use by RAG pipelines, semantic memory systems, or AI agents.",
+  "type": "object",
+  "required": ["schema", "type", "id", "version", "name", "atoms"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "https://knowledge-atoms.com/schemas/composition-v1.json"
+    },
+    "type": { "type": "string", "const": "knowledge-base" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 60 },
+      "uniqueItems": true
+    },
+    "atoms": {
+      "type": "object",
+      "description": "Atom references grouped by type.",
+      "additionalProperties": false,
+      "properties": {
+        "entity_types":       { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
+        "relationship_types": { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
+        "provenance_atoms":   { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
+        "fact_types":         { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true },
+        "confidence_primitives": { "type": "array", "items": { "$ref": "#/$defs/ref" }, "uniqueItems": true }
+      }
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "required": ["ref", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "ref":     { "type": "string", "pattern": "^knowledge-atoms://atoms/[a-z-]+/[a-z0-9-]+$" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$" }
+      }
+    }
+  }
+}

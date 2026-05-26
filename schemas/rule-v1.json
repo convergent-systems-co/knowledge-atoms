@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knowledge-atoms.com/schemas/rule-v1.json",
+  "title": "knowledge-atoms v1 rule",
+  "description": "A constraint rule governing the quality, provenance, and conflict-resolution behaviour of atoms in a knowledge-atoms catalog or knowledge-base composition.",
+  "type": "object",
+  "required": ["schema", "type", "id", "version", "name"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "https://knowledge-atoms.com/schemas/rule-v1.json"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["confidence-floor", "provenance-required", "conflict-resolution"],
+      "description": "confidence-floor: reject atoms whose confidence falls below a threshold. provenance-required: reject atoms that lack a source_ref. conflict-resolution: specify how contradictory facts about the same subject are handled."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$"
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "description": { "type": "string", "maxLength": 1000 },
+    "applies_to": {
+      "type": "array",
+      "description": "Atom types this rule constrains. Empty means all types.",
+      "items": {
+        "type": "string",
+        "enum": ["entity-type", "relationship-type", "provenance-atom", "fact-type", "confidence-primitive"]
+      },
+      "uniqueItems": true
+    },
+    "confidence_floor": {
+      "type": "object",
+      "description": "Present when type=confidence-floor.",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Atoms with confidence below this value MUST NOT be included in a production knowledge-base."
+        }
+      },
+      "required": ["minimum"]
+    },
+    "provenance_required": {
+      "type": "object",
+      "description": "Present when type=provenance-required.",
+      "additionalProperties": false,
+      "properties": {
+        "enforce": {
+          "type": "boolean",
+          "description": "When true, any atom missing source_ref is rejected at validation time."
+        }
+      },
+      "required": ["enforce"]
+    },
+    "conflict_resolution": {
+      "type": "object",
+      "description": "Present when type=conflict-resolution.",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["highest-confidence", "most-recent", "most-specific-source", "manual-review"],
+          "description": "Algorithm for choosing between contradictory atoms about the same subject."
+        }
+      },
+      "required": ["strategy"]
+    }
+  }
+}

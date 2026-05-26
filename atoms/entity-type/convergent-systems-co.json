@@ -1,0 +1,14 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "entity-type",
+  "id": "convergent-systems-co",
+  "version": "1.0.0",
+  "name": "convergent-systems-co",
+  "description": "convergent-systems-co GitHub organization",
+  "content": {
+    "type": "organization",
+    "canonical_id": "convergent-systems-co",
+    "url": "https://github.com/convergent-systems-co"
+  },
+  "tags": ["organization", "governance", "atoms-ecosystem"]
+}

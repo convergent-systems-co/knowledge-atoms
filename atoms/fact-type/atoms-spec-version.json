@@ -1,0 +1,14 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "fact-type",
+  "id": "atoms-spec-version",
+  "version": "1.0.0",
+  "name": "atoms-spec current version",
+  "description": "Records the currently active version of the atoms-spec, which all *-atoms catalogs in the convergent-systems-co ecosystem MUST declare conformance to.",
+  "content": {
+    "fact": "The current atoms-spec version is v1.2.0"
+  },
+  "confidence": 1.0,
+  "source_ref": "schema-atoms/design-spec/atom-spec@1.1.0",
+  "tags": ["atoms-spec", "versioning", "governance"]
+}
