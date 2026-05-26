@@ -1,0 +1,16 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "fact-type",
+  "id": "schema-atoms-atom-count",
+  "version": "1.0.0",
+  "name": "schema-atoms total atom count",
+  "description": "The total number of atoms in the schema-atoms catalog as of the last sprint.",
+  "content": {
+    "fact": "schema-atoms contains 73 atoms as of 2026-05-26: 3 grammar atoms (persona, policy, prompt), T2 group (identity, service, channel, context, model), T3 group (knowledge, event, doc, workflow, agent, compliance, brand, theme, plugin, profile), plus json-schema compositions and design-spec compositions.",
+    "as_of": "2026-05-26",
+    "count": 73
+  },
+  "confidence": 0.95,
+  "source_ref": "https://github.com/convergent-systems-co/schema-atoms",
+  "tags": ["schema-atoms", "catalog", "count"]
+}

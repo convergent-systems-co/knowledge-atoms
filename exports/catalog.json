@@ -1,8 +1,28 @@
 {
   "catalog": "knowledge-atoms",
   "version": "0.1.0",
-  "built_at": "2026-05-26T15:44:12+00:00",
+  "built_at": "2026-05-26T17:40:47+00:00",
   "atoms": [
+    {
+      "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+      "type": "confidence-primitive",
+      "id": "high-confidence",
+      "version": "1.0.0",
+      "name": "High Confidence",
+      "description": "Confidence tier for facts verified from authoritative primary sources. Threshold: 0.9-1.0.",
+      "content": {
+        "tier": "high",
+        "threshold_min": 0.9,
+        "threshold_max": 1.0,
+        "definition": "A high-confidence fact has been verified from at least one authoritative primary source (official documentation, signed commits, or direct measurement). Suitable for automated decision-making."
+      },
+      "confidence": 1.0,
+      "tags": [
+        "confidence",
+        "threshold",
+        "high"
+      ]
+    },
     {
       "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
       "type": "entity-type",
@@ -41,6 +61,26 @@
     },
     {
       "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+      "type": "fact-type",
+      "id": "schema-atoms-atom-count",
+      "version": "1.0.0",
+      "name": "schema-atoms total atom count",
+      "description": "The total number of atoms in the schema-atoms catalog as of the last sprint.",
+      "content": {
+        "fact": "schema-atoms contains 73 atoms as of 2026-05-26: 3 grammar atoms (persona, policy, prompt), T2 group (identity, service, channel, context, model), T3 group (knowledge, event, doc, workflow, agent, compliance, brand, theme, plugin, profile), plus json-schema compositions and design-spec compositions.",
+        "as_of": "2026-05-26",
+        "count": 73
+      },
+      "confidence": 0.95,
+      "source_ref": "https://github.com/convergent-systems-co/schema-atoms",
+      "tags": [
+        "schema-atoms",
+        "catalog",
+        "count"
+      ]
+    },
+    {
+      "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
       "type": "provenance-atom",
       "id": "atoms-ecosystem-origin",
       "version": "1.0.0",
@@ -57,6 +97,21 @@
         "origin",
         "atoms-ecosystem",
         "governance"
+      ]
+    },
+    {
+      "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+      "type": "relationship-type",
+      "id": "catalog-references",
+      "version": "1.0.0",
+      "name": "Catalog References",
+      "description": "A catalog or spec document references another catalog as a dependency or cross-catalog integration point.",
+      "confidence": 1.0,
+      "source_ref": "https://github.com/convergent-systems-co/atoms",
+      "tags": [
+        "relationship",
+        "catalog",
+        "ecosystem"
       ]
     }
   ],
