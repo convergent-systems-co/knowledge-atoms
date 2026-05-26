@@ -1,0 +1,11 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "relationship-type",
+  "id": "catalog-references",
+  "version": "1.0.0",
+  "name": "Catalog References",
+  "description": "A catalog or spec document references another catalog as a dependency or cross-catalog integration point.",
+  "confidence": 1.0,
+  "source_ref": "https://github.com/convergent-systems-co/atoms",
+  "tags": ["relationship", "catalog", "ecosystem"]
+}

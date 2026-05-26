@@ -1,0 +1,16 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "confidence-primitive",
+  "id": "high-confidence",
+  "version": "1.0.0",
+  "name": "High Confidence",
+  "description": "Confidence tier for facts verified from authoritative primary sources. Threshold: 0.9-1.0.",
+  "content": {
+    "tier": "high",
+    "threshold_min": 0.9,
+    "threshold_max": 1.0,
+    "definition": "A high-confidence fact has been verified from at least one authoritative primary source (official documentation, signed commits, or direct measurement). Suitable for automated decision-making."
+  },
+  "confidence": 1.0,
+  "tags": ["confidence", "threshold", "high"]
+}
