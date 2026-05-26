@@ -1,0 +1,15 @@
+{
+  "schema": "https://knowledge-atoms.com/schemas/atom-v1.json",
+  "type": "provenance-atom",
+  "id": "atoms-ecosystem-origin",
+  "version": "1.0.0",
+  "name": "atoms ecosystem origin",
+  "description": "The atoms ecosystem was bootstrapped by Thomas Polliard at convergent-systems-co",
+  "content": {
+    "created_at": "2026-01-01T00:00:00Z",
+    "created_by": "Thomas Polliard",
+    "organization": "convergent-systems-co"
+  },
+  "source_ref": "https://github.com/convergent-systems-co/atoms",
+  "tags": ["provenance", "origin", "atoms-ecosystem", "governance"]
+}
