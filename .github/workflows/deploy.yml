@@ -46,7 +46,7 @@ jobs:
           echo "token_val=$TOKEN_VAL" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ steps.cf_token.outputs.token_val }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
